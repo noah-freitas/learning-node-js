@@ -9,15 +9,13 @@ http.createServer((req, res) ->
   fs.readFile 'server.js', 'utf8', (err, data) ->
 
     res.writeHead 200, 'Content-Type': 'text/plain'
-
-    # if there's an error print an message
-    # otherwise write JS file to client
     if err
       res.write 'Could not find or open file for reading\n'
+      
     else
+      # if no error, write JS file to client
       res.write data
 
-    # Close the response.
     res.end()
 
 # listen on the Cloud 9 port.
