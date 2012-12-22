@@ -1,5 +1,5 @@
 # load http module
-http = require 'http'
+http = require "http"
 
 # create http server
 http.createServer((req, res) ->
@@ -8,6 +8,6 @@ http.createServer((req, res) ->
 
   # write message and signal communication is complete
   res.end "Hello, World!\n"
-).listen 8124
+).listen process.env.PORT
 
-console.log 'Server running on 8124'
+console.log 'Server running on ' + process.env.PORT
