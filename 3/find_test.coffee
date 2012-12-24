@@ -15,7 +15,8 @@ find.stderr.on 'data', (data) -> console.log 'grep stderr: ' + data
 grep.stderr.on 'data', (data) -> console.log 'grep stderr: ' + data
 
 # and exit handling for both
-find.on 'exit', (code) ->
+# change event to 'exit' for node <= 0.6
+find.on 'close', (code) ->
   console.log 'find process exited with code ' + code if code isnt 0
 
   # go ahead and end grep process
