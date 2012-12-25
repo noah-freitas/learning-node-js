@@ -11,27 +11,32 @@ try
     counter = 0
 
     modify_file = (name) ->
-      # modify contents
-      fs.readFile "./data/#{name}", 'utf8', (err, data) ->
-        throw err if err?
+      # check to see if object is file
+      fs.stat "./data/#{name}", (err, stats) ->
+        throw err if err
 
-        adjData = data.replace /somecompany\.com/g, 'burningbird.net'
+        if stats.isFile()
+          # modify contents
+          fs.readFile "./data/#{name}", 'utf8', (err, data) ->
+            throw err if err
 
-        # write to file
-        fs.writeFile "./data/#{name}", adjData, (err) ->
+            adjData = data.replace /somecompany\.com/g, 'burningbird.net'
 
-          throw err if err?
+            # write to file
+            fs.writeFile "./data/#{name}", adjData, (err) ->
 
-          # log write
-          writeStream.write "changed #{name} \n", 'utf8', (err) ->
-            throw err if err?
+              throw err if err
 
-            console.log "finished #{name}"
-            counter += 1
-            console.log 'all done' if counter >= files.length
-    
+              # log write
+              writeStream.write "changed #{name} \n", 'utf8', (err) ->
+                throw err if err
+
+                console.log "finished #{name}"
+                counter += 1
+                console.log 'all done' if counter >= files.length
+
     # modify each file
-    (modify_file(file) for file in files)
+    (modify_file(file) for file in files) if files
 
 catch err
   console.error util.inspect err
