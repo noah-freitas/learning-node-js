@@ -8,6 +8,8 @@ writeStream = fs.createWriteStream './log.txt',
 try
   # get list of files
   fs.readdir './data/', (err, files) ->
+    counter = 0
+
     modify_file = (name) ->
       # modify contents
       fs.readFile "./data/#{name}", 'utf8', (err, data) ->
@@ -21,7 +23,12 @@ try
           throw err if err?
 
           # log write
-          writeStream.write "changed #{name} \n", 'utf8', (err) -> throw err if err?
+          writeStream.write "changed #{name} \n", 'utf8', (err) ->
+            throw err if err?
+
+            console.log "finished #{name}"
+            counter += 1
+            console.log 'all done' if counter >= files.length
     
     # modify each file
     (modify_file(file) for file in files)
