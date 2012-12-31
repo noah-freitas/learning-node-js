@@ -1,7 +1,7 @@
 exports.mapRoute = (app, prefix) ->
   prefix = "/#{prefix}"
 
-  prefixObj = require "./controllers/#{prefix}"
+  prefixObj = require "./controllers#{prefix}"
 
   # index
   app.get prefix, prefixObj.index
