@@ -1,7 +1,7 @@
 mongodb = require 'mongodb'
 
 server = new mongodb.Server 'localhost', 27017, auto_reconnect: true
-db = new mongodb.Db 'exampleDb', server
+db = new mongodb.Db 'exampleDb', server, safe: false
 
 # open database connection
 db.open (err, db) ->
