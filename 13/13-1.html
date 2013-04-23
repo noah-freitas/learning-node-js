@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <title>Bidirectional communication</title>
+    <script src=/socket.io/socket.io.js></script>
+    <script>
+      var socket = io.connect('http://test.threepiecedesign.com:9001/');
+      socket.on('news', function (data) {
+        var html = '<p>' + data.news + '</p>';
+        document.getElementById('content').innerHTML = html;
+        socket.emit('echo', { back: data });
+      });
+    </script>
+  </head>
+  <body>
+    <div id=content></div>
+  </body>
+</html>
