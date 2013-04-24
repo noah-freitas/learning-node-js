@@ -9,7 +9,7 @@
       socket.on('news', function (data) {
         var html = '<p>' + data.news + '</p>';
         document.getElementById('content').innerHTML = html;
-        socket.emit('echo', { back: data });
+        socket.emit('echo', { back: data.news });
       });
     </script>
   </head>
